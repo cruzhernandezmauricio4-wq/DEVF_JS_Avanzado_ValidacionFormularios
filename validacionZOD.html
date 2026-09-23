@@ -66,6 +66,74 @@
 
   <p id="errors"></p>
 
-  
+  <script>
+    // Importamos Zod
+    const { z } = window.Zod;
+
+    // Esquema para validar los datos del formulario
+    const registerSchema = z.object({
+      // Nombre: cadena no vacía, mínimo 3 caracteres
+      name: z.string().min(3, { message: "El nombre debe tener al menos 3 caracteres." }),
+      // Correo: formato válido
+      email: z.string().email({ message: "El correo electrónico no es válido." }),
+      // Contraseña: mínimo 6 caracteres
+      password: z.string().min(6, { message: "La contraseña debe tener al menos 6 caracteres." })
+    });
+
+    document.getElementById("registerForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      
+      // Capturamos los valores ingresados
+      const formData = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value,
+      };
+
+      try {
+        // Validamos con Zod
+        registerSchema.parse(formData);
+        document.getElementById("errors").textContent = "";
+        alert("¡Registro exitoso!");
+      } catch (error) {
+        // Mostramos los mensajes de error en la página
+        document.getElementById("errors").textContent = error.errors.map(e => e.message).join(" | ");
+      }
+    });
+  </script><script>
+    // Importamos Zod
+    const { z } = window.Zod;
+
+    // Esquema para validar los datos del formulario
+    const registerSchema = z.object({
+      // Nombre: cadena no vacía, mínimo 3 caracteres
+      name: z.string().min(3, { message: "El nombre debe tener al menos 3 caracteres." }),
+      // Correo: formato válido
+      email: z.string().email({ message: "El correo electrónico no es válido." }),
+      // Contraseña: mínimo 6 caracteres
+      password: z.string().min(6, { message: "La contraseña debe tener al menos 6 caracteres." })
+    });
+
+    document.getElementById("registerForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      
+      // Capturamos los valores ingresados
+      const formData = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value,
+      };
+
+      try {
+        // Validamos con Zod
+        registerSchema.parse(formData);
+        document.getElementById("errors").textContent = "";
+        alert("¡Registro exitoso!");
+      } catch (error) {
+        // Mostramos los mensajes de error en la página
+        document.getElementById("errors").textContent = error.errors.map(e => e.message).join(" | ");
+      }
+    });
+  </script>
 </body>
 </html>
